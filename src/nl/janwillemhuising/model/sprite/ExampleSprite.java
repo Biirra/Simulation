@@ -3,7 +3,6 @@ package nl.janwillemhuising.model.sprite;
 import javafx.scene.Node;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
-import nl.janwillemhuising.model.Layer;
 import nl.janwillemhuising.model.PVector;
 
 /**

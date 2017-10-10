@@ -42,7 +42,7 @@ public abstract class Sprite extends Region{
         acceleration.mult(0);
 
 
-        relocate(location.getX(), location.getY());
+        //relocate(location.getX(), location.getY());
 
 
         //setRotate(Math.toDegrees(angle));

@@ -3,14 +3,16 @@ package nl.janwillemhuising;
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
 import javafx.scene.Scene;
+import javafx.scene.canvas.Canvas;
+import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
-import nl.janwillemhuising.controller.Debugcontroller;
+import nl.janwillemhuising.controller.DebugController;
 import nl.janwillemhuising.controller.GameEngine;
 import nl.janwillemhuising.model.DebugPanel;
-import nl.janwillemhuising.model.World;
+import nl.janwillemhuising.model.Simulation;
 import nl.janwillemhuising.view.DebugView;
 import nl.janwillemhuising.view.MainView;
 
@@ -18,6 +20,7 @@ import nl.janwillemhuising.view.MainView;
 public class Main extends Application {
 
     AnimationTimer simulationLoop;
+    Canvas canvas;
     Scene scene;
 
     @Override
@@ -27,16 +30,20 @@ public class Main extends Application {
         primaryStage.getIcons().add(new Image("https://www.shareicon.net/data/64x64/2016/08/22/818801_plant_512x512.png"));
         BorderPane root = new BorderPane();
 
+        //Canvas
+        canvas = new Canvas(Settings.SCENE_WIDTH,Settings.SCENE_HEIGHT);
+        GraphicsContext gc = canvas.getGraphicsContext2D();
+        root.getChildren().add(canvas);
+
         Pane layerPane = new Pane();
-        root.setCenter(layerPane);
 
         DebugPanel debugPanel = createDebugPanel();
         DebugView debugView = new DebugView();
-        World world = createWorld();
-        MainView mainView = new MainView();
+        Simulation simulation = createWorld();
+        MainView mainView = new MainView(gc);
 
-        Debugcontroller debugcontroller = new Debugcontroller(debugPanel, debugView);
-        GameEngine gameEngine = new GameEngine(world, mainView);
+        DebugController debugController = new DebugController(debugPanel, debugView);
+        GameEngine gameEngine = new GameEngine(simulation, mainView);
 
         //-----------------------------
         // Application Loop
@@ -44,15 +51,16 @@ public class Main extends Application {
         simulationLoop = new AnimationTimer(){
             @Override
             public void handle(long now) {
-                debugcontroller.update(now);
+                debugController.update(now);
                 gameEngine.update();
             }
         };
         simulationLoop.start();
 
 
-        layerPane.getChildren().add(mainView.getWorldLayer());
+        //layerPane.getChildren().add(mainView.getWorldLayer());
         layerPane.getChildren().add(debugView.getDebugView());
+        root.setCenter(layerPane);
 
 
         scene = new Scene(root, Settings.SCENE_WIDTH, Settings.SCENE_HEIGHT);
@@ -62,8 +70,8 @@ public class Main extends Application {
 
     }
 
-    public World createWorld(){
-        return new World();
+    public Simulation createWorld(){
+        return new Simulation();
     }
 
     public DebugPanel createDebugPanel(){

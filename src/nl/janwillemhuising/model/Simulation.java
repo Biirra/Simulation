@@ -6,16 +6,16 @@ import nl.janwillemhuising.model.sprite.ExampleSprite;
 
 import java.util.ArrayList;
 
-public class World {
+public class Simulation {
 
     ArrayList<ExampleSprite> allExampleSprites = new ArrayList<>();
 
-    public World(){
+    public Simulation(){
         //declare everything needed for simulation.
         prepareSprites();
     }
 
-    // Main World loop
+    // Main Simulation loop
     public void update(){
         // simulate
     }
@@ -35,7 +35,7 @@ public class World {
 
         // create Henry data
         PVector location = new PVector( x,y);
-        PVector velocity = PVector.random2D();
+        PVector velocity = new PVector( 0,0.5F);
         PVector acceleration = new PVector( 0,0);
 
         ExampleSprite exampleSprite = new ExampleSprite(location, velocity, acceleration, mass);
