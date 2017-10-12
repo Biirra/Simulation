@@ -12,13 +12,9 @@ public class Simulation {
 
     public Simulation(){
         //declare everything needed for simulation.
-        prepareSprites();
+        //prepareSprites();
     }
 
-    // Main Simulation loop
-    public void update(){
-        // simulate
-    }
 
     public void prepareSprites(){
         for (int i = 0; i < Settings.ATTRACTOR_COUNT; i++){

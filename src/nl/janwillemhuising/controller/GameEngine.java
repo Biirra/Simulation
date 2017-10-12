@@ -15,10 +15,7 @@ public class GameEngine{
     }
 
     public void update(){
-        simulation.update();
-        view.rePaint();
         simulation.getAllExampleSprites().forEach(exampleSprite -> {
-            System.out.println("drawing Sprite : " + exampleSprite);
             exampleSprite.update();
             view.drawSprite(exampleSprite);
         });

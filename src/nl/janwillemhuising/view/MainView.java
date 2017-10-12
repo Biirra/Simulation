@@ -20,7 +20,6 @@ public class MainView{
         gc.fillRect((double)sprite.getLocation().getX(), (double) sprite.getLocation().getY(),4,4);
     }
     public void rePaint(){
-        System.out.println("repainting Background...");
         gc.setFill(Color.LIGHTGRAY);
         gc.fillRect(0,0, Settings.SCENE_WIDTH,Settings.SCENE_HEIGHT);
     }
