@@ -16,9 +16,10 @@ public class Settings {
 
 
     //------------------------------------------
-    //  Tile Size
+    //  Tile Settings
     //------------------------------------------
     public static double PREFERED_TILE_WIDTH = 32;
     public static double PREFERED_TILE_HEIGTH = 32;
+    public static double TILE_ANIMATION_DURATION = 0.1;
 
 }

@@ -48,14 +48,16 @@ public class Main extends Application {
         DebugController debugController = new DebugController(debugPanel, debugView);
         GameEngine gameEngine = new GameEngine(simulation, mainView);
 
+        final long startNanoTime = System.nanoTime();
         //-----------------------------
         // Application Loop
         //-----------------------------
         simulationLoop = new AnimationTimer(){
             @Override
-            public void handle(long now) {
-                debugController.update(now);
-                backgroundController.update();
+            public void handle(long currentNanoTime) {
+                double t = (currentNanoTime - startNanoTime) / 1000000000.0;
+                debugController.update(currentNanoTime);
+                backgroundController.update(t);
                 gameEngine.update();
             }
         };

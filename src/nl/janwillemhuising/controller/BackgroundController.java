@@ -15,8 +15,9 @@ public class BackgroundController {
         this.backgroundView = backgroundView;
     }
 
-    public void update(){
-        backgroundView.render(level.getTileLevelOne());
+    public void update(double now){
+
+        backgroundView.render(level.getTileLevelOne(), now);
     }
 
 }
