@@ -6,17 +6,18 @@ import nl.janwillemhuising.model.sprite.Sprite;
 
 public class MainView{
 
-    Layer worldLayer;
+    Layer simulationLayer;
 
     public MainView(){
-        worldLayer = new Layer(Settings.SCENE_WIDTH, Settings.SCENE_HEIGHT);
-    }
-    public void addSprite(Sprite sprite){
-        worldLayer.getChildren().add(sprite); // spawn sprite
+        simulationLayer = new Layer(Settings.SCENE_WIDTH, Settings.SCENE_HEIGHT);
     }
 
-    public Layer getWorldLayer(){
-        return worldLayer;
+    public void addSprite(Sprite sprite){
+        simulationLayer.getChildren().add(sprite); // spawn sprite
+    }
+
+    public Layer getSimulationLayer(){
+        return simulationLayer;
     }
 
 }

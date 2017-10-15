@@ -12,7 +12,7 @@ public class Settings {
 
     public static int SPRITE_SLOW_DOWN_DISTANCE = 100; //pixels
 
-    public static int ATTRACTOR_COUNT = 3;
+    public static int ATTRACTOR_COUNT = 0;
 
 
     //------------------------------------------
@@ -20,5 +20,11 @@ public class Settings {
     //------------------------------------------
     public static double PREFERED_TILE_WIDTH = 32;
     public static double PREFERED_TILE_HEIGTH = 32;
+
+    //------------------------------------------
+    //  Tile Size
+    //------------------------------------------
+    public static double TILESHEET_X = 0;
+    public static double TILESHEET_Y = 32;
 
 }

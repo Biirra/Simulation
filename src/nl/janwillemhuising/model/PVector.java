@@ -6,22 +6,22 @@ import java.util.Random;
  * Created by JanWillem Huising on 21-5-2017.
  */
 public class PVector {
-    float x;
-    float y;
+    double x;
+    double y;
 
 
-    public float getX(){
+    public double getX(){
         return this.x;
     }
-    public float getY(){
+    public double getY(){
         return this.y;
     }
 
-    public PVector(float x_, float y_){
+    public PVector(double x_, double y_){
         this.x = x_;
         this.y = y_;
     }
-    public void set(float x_, float y_){
+    public void set(double x_, double y_){
         x = x_;
         y = y_;
     }
@@ -45,7 +45,7 @@ public class PVector {
         PVector v3 = new PVector(v1.x - v2.x, v1.y - v2.y);
         return v3;
     }
-    public void mult(float m){
+    public void mult(double m){
         this.x = this.x*m;
         this.y = this.y*m;
     }
@@ -53,19 +53,19 @@ public class PVector {
         PVector v3 = new PVector(v1.x * m, v1.y * m);
         return v3;
     }
-    public void div(float n){
+    public void div(double n){
         this.x = this.x/n;
         this.y = this.y/n;
     }
-    public static PVector div(PVector v1, float m){
+    public static PVector div(PVector v1, double m){
         PVector v3 = new PVector(v1.x / m, v1.y / m);
         return v3;
     }
-    public float mag(){
-        return (float)Math.sqrt(this.x*this.x + this.y*this.y);
+    public double mag(){
+        return Math.sqrt(this.x*this.x + this.y*this.y);
     }
     public void normalize(){
-        float m = mag();
+        double m = mag();
         if(m != 0){
             div(m);
         }

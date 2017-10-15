@@ -6,16 +6,16 @@ import nl.janwillemhuising.model.sprite.ExampleSprite;
 
 import java.util.ArrayList;
 
-public class World {
+public class Simulation {
 
     ArrayList<ExampleSprite> allExampleSprites = new ArrayList<>();
 
-    public World(){
+    public Simulation(){
         //declare everything needed for simulation.
         prepareSprites();
     }
 
-    // Main World loop
+    // Main Simulation loop
     public void update(){
         // simulate
     }

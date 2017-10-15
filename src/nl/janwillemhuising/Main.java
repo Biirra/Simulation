@@ -9,9 +9,12 @@ import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import nl.janwillemhuising.controller.Debugcontroller;
 import nl.janwillemhuising.controller.GameEngine;
+import nl.janwillemhuising.controller.LevelController;
 import nl.janwillemhuising.model.DebugPanel;
-import nl.janwillemhuising.model.World;
+import nl.janwillemhuising.model.Level;
+import nl.janwillemhuising.model.Simulation;
 import nl.janwillemhuising.view.DebugView;
+import nl.janwillemhuising.view.LevelView;
 import nl.janwillemhuising.view.MainView;
 
 
@@ -24,19 +27,27 @@ public class Main extends Application {
     public void start(Stage primaryStage) throws Exception {
         // create window
         primaryStage.setTitle("NatureOfCode");
-        primaryStage.getIcons().add(new Image("https://www.shareicon.net/data/64x64/2016/08/22/818801_plant_512x512.png"));
+        //primaryStage.getIcons().add(new Image("https://www.shareicon.net/data/64x64/2016/08/22/818801_plant_512x512.png"));
         BorderPane root = new BorderPane();
 
         Pane layerPane = new Pane();
         root.setCenter(layerPane);
 
+        // create a debug panel for usefull information
         DebugPanel debugPanel = createDebugPanel();
         DebugView debugView = new DebugView();
-        World world = createWorld();
+
+        // create a background
+        Level level = new Level();
+        LevelView levelView = new LevelView();
+
+        // create the simulation
+        Simulation simulation = createSimulation();
         MainView mainView = new MainView();
 
         Debugcontroller debugcontroller = new Debugcontroller(debugPanel, debugView);
-        GameEngine gameEngine = new GameEngine(world, mainView);
+        LevelController levelController = new LevelController(level, levelView);
+        GameEngine gameEngine = new GameEngine(simulation, mainView);
 
         //-----------------------------
         // Application Loop
@@ -45,13 +56,14 @@ public class Main extends Application {
             @Override
             public void handle(long now) {
                 debugcontroller.update(now);
+                levelController.update();
                 gameEngine.update();
             }
         };
         simulationLoop.start();
 
-
-        layerPane.getChildren().add(mainView.getWorldLayer());
+        layerPane.getChildren().add(levelView.getLevelLayer());
+        layerPane.getChildren().add(mainView.getSimulationLayer());
         layerPane.getChildren().add(debugView.getDebugView());
 
 
@@ -62,8 +74,8 @@ public class Main extends Application {
 
     }
 
-    public World createWorld(){
-        return new World();
+    public Simulation createSimulation(){
+        return new Simulation();
     }
 
     public DebugPanel createDebugPanel(){
