@@ -1,15 +1,12 @@
 package nl.janwillemhuising.model.tile;
 
-import javafx.geometry.Rectangle2D;
 import javafx.scene.Node;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.Region;
 import nl.janwillemhuising.Settings;
 import nl.janwillemhuising.model.PVector;
 
 
-public abstract class Tile extends Region{
+public class Tile extends Region{
     private PVector location;
     private double
             w = Settings.PREFERED_TILE_WIDTH,
@@ -18,17 +15,24 @@ public abstract class Tile extends Region{
     private Node view;
     int colX, colY;
 
-    public Tile(Image tilesheet, int colX, int colY){
+    public Tile(int colX, int colY){
         this.location = new PVector(0,0);
 
-        this.view = createView(tilesheet, colX, colY);
+        this.colX = colX;
+        this.colY = colY;
+        this.view = createView(this.colX, this.colY);
+
         getChildren().add(view);
     }
 
-    public Tile(Image tilesheet, int colX, int colY , PVector location){
+    public Tile(int colX, int colY, PVector location){
         this.location = location;
 
-        this.view = createView(tilesheet, colX, colY);
+        this.colX = colX;
+        this.colY = colY;
+        this.view = createView(this.colX, this.colY);
+
+        this.view = createView(colX, colY);
         getChildren().add(view);
     }
 
@@ -37,7 +41,9 @@ public abstract class Tile extends Region{
     }
 
 
-    public abstract Node createView(Image image, int colX, int colY);
+    public Node createView(int colX, int colY){
+        return Settings.TILESHEETGRASSLAND.getTileImage(colX, colY);
+    };
 
     public void setLocation(PVector location){
         this.location = location;
@@ -47,16 +53,19 @@ public abstract class Tile extends Region{
         return location;
     }
 
+    public int getColX() {
+        return colX;
+    }
+
+    public int getColY() {
+        return colY;
+    }
+    public static Tile copy(Tile original, PVector location){
+       // System.out.println(original.getLocation());
+        return new Tile(original.getColX(), original.getColY(), location);
+    }
     public Node getTileImage() {
         return view;
     }
-    public ImageView getTileImage(Image image, int cellX , int cellY){
-        ImageView tileSheet = new ImageView(image);
-        double tileWidth = Settings.PREFERED_TILE_WIDTH;
-        double tileHeight = Settings.PREFERED_TILE_HEIGTH;
-        Rectangle2D rect = new Rectangle2D(Settings.TILESHEET_X+(cellX*tileWidth), Settings.TILESHEET_Y+(cellY*tileHeight), tileWidth, tileHeight);
-        tileSheet.setViewport(rect);
-        System.out.println("X:  "+ cellX*tileWidth + "  Y:  " + cellY*tileHeight + "  colX:  " + cellX + "  cellY: " + cellY);
-        return tileSheet;
-    }
+
 }
